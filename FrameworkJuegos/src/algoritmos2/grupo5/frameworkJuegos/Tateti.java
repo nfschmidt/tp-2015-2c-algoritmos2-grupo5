@@ -51,7 +51,7 @@ public class Tateti extends Juego
 	
 	public  void cerrar()
 	{
-		System.out.println("Me quedé sin casillas, terminó el juego");
+		System.out.println("Me quedï¿½ sin casillas, terminï¿½ el juego");
 	}
 	private boolean chequearFin(int NumeroCasillas,int contadorCasillas)
 	{
@@ -79,10 +79,14 @@ public class Tateti extends Juego
 				finalizo= chequearFin(numeroCasillas,contadorCasillas);
 			}
 			else
-				System.out.println("Ese numero no, elegí otro");
+				System.out.println("Ese numero no, elegï¿½ otro");
 		}
 		cerrar();
 		scanner.close();
+	}
+	
+	public boolean finalizo() {
+		return false;
 	}
 	
 
