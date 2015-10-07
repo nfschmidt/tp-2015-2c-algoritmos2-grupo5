@@ -8,7 +8,7 @@ public abstract class Juego {
 	public abstract void cerrar();
 	public abstract void jugar();//este seria el que llama a las jugadas
 	private String dirJuego; //path del directorio donde se ubican los recursos del juego en caso de tener alguno
-	public string getDirJuego()
+	public String getDirJuego()
 	{
 		return dirJuego;
 	}
