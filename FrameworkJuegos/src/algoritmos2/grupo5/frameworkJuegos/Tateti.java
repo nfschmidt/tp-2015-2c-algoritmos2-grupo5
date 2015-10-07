@@ -79,7 +79,7 @@ public class Tateti extends Juego
 				finalizo= chequearFin(numeroCasillas,contadorCasillas);
 			}
 			else
-				System.out.println("Ese numero no, eleg� otro");
+				System.out.println("Ese numero no, elegi otro");
 		}
 		cerrar();
 		scanner.close();
@@ -87,6 +87,10 @@ public class Tateti extends Juego
 	
 	public boolean finalizo() {
 		return false;
+	}
+	
+	public void jugadaRecibida(JugadaTateti jugada) {
+		
 	}
 	
 
