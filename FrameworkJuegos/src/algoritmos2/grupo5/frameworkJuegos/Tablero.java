@@ -5,11 +5,23 @@ public class Tablero
 	private int filas;
 	private int columnas;
 	private String[][] tablero;
-	public Tablero(int f, int c)
+	public Tablero()//(int f, int c)
+	{
+	//	tablero = new String[f][c];
+//		filas=f;
+//		columnas=c;
+	}
+	public void setFilas(int filas)
+	{
+		this.filas = filas;
+	}
+	public void setColumnas(int columnas)
+	{
+		this.columnas = columnas;
+	}
+	public void dimTablero(int f, int c)
 	{
 		tablero = new String[f][c];
-		filas=f;
-		columnas=c;
 	}
 	public String[][] getTablero()
 	{

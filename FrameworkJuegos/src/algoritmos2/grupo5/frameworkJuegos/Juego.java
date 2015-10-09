@@ -17,5 +17,4 @@ public abstract class Juego {
     	this.dirJuego = path;
     }
 }
-//Comentario de prueba
-// Comentario de prueba 2
+

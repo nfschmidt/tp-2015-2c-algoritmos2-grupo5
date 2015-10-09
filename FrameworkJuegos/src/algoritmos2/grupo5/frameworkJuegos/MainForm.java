@@ -8,5 +8,13 @@ public class MainForm
 		tateti.inicializar();
 		tateti.jugar();
 	}
-
+	
+//	private void crearMenu()
+//	{
+//		
+//	}
+//	private void cargarJuego()
+//	{
+//		
+//	}	
 }
