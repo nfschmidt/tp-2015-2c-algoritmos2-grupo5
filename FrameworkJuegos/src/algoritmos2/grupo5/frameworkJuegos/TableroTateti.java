@@ -1,5 +1,6 @@
 package algoritmos2.grupo5.frameworkJuegos;
 
+
 public class TableroTateti extends Tablero
 {
 	public TableroTateti(int f, int c)

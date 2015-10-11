@@ -1,22 +1,42 @@
 package algoritmos2.grupo5.frameworkJuegos;
 
 public class JugadaTateti extends Jugada
-{
+{	
+	private UITateti ui;
 	private static int unaPosicion;
 	public JugadaTateti(Tablero tablero, Reglamento reglamento)
 	{
-		this.tablero = tablero;
-		this.reglamento = reglamento;
+		this.setTablero(tablero);
+		this.setReglamento(reglamento);
+	}
+	public void inicializar()
+	{
+		ui= new UITateti();
+		ui.comenzar();
 	}
 	 public boolean validar(int unValor)
 	 { 
-		 unaPosicion = tablero.getPosicion(Integer.toString(unValor));
-		 return reglamento.esValida(unaPosicion);//si encontró unValor en el tablero
+		 unaPosicion = getTablero().getPosicion(Integer.toString(unValor));
+		 return getReglamento().esValida(unaPosicion);//si encontró unValor en el tablero
 	 }
-	 public void jugar(int casillasOcupadas)
+	 
+	 public int jugar( int contadorCasillasOcupadas)
 	 {
-		 String unCaracter = getCaracter(casillasOcupadas);
-		 tablero.setCasilla(unCaracter,unaPosicion/10,unaPosicion % 10);
+	    String unCaracter;
+		ui.imprimirMenu(); 
+	    int unValor =ui.scanearValor();
+		if (validar(unValor))
+		{
+			unCaracter = getCaracter(contadorCasillasOcupadas);
+			getTablero().setCasilla(unCaracter,unaPosicion/10,unaPosicion % 10);
+			ui.actualizar(super.getTablero());
+			contadorCasillasOcupadas++;
+		}
+		else
+		{
+			ui.imprimir("Ese numero no, elegi otro");
+		}
+		return contadorCasillasOcupadas;
 	 }
 	 public String getCaracter(int casillasOcupadas)
 	 {

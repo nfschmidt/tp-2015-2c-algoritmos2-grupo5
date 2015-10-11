@@ -1,8 +1,63 @@
 package algoritmos2.grupo5.frameworkJuegos;
 
-public interface UI
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public abstract class UI
 {
-	public void comenzar();
-	public void actualizar(Tablero tablero);
-	public void cerrar();
+	Scanner scanner;
+	public void comenzar()
+	{
+		scanner=new Scanner(System.in);
+	}
+	public void actualizar()
+	{
+		
+	}
+	public void cerrar()
+	{
+		scanner.close();
+	}
+	public int scanearValor()
+	{
+		boolean error= false;
+		do
+		{
+			try
+			{
+				return scanner.nextInt();
+			}
+			catch (InputMismatchException ex)
+			{
+				imprimir("Eso no es un numero!!!!");
+				scanner.next();
+				error=true;
+			}
+		} while (error);
+		return 0;
+	}
+	public String scanearCadena()
+	{
+		boolean error= false;
+		do
+		{
+			try
+			{
+				return scanner.next();
+			}
+			catch (Exception ex)
+			{
+				imprimir("Pasó algo acá!!!!");
+				scanner.next();
+				error=true;
+			}
+		} while (error);
+		return "";
+	}
+	public void imprimir(String mensaje)
+	{
+		System.out.println(mensaje);
+	}
+	public abstract void imprimirMenu();
+
 }

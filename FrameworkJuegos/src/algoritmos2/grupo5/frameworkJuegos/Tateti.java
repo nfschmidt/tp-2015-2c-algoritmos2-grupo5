@@ -1,10 +1,9 @@
 package algoritmos2.grupo5.frameworkJuegos;
 
 public class Tateti extends Juego
-{
-	private UITateti ui;
+{ 
+	static final int CANTIDAD_CASILLAS=9;
 	private ReglamentoTateti miReglamento; 
-	private int cantidadCasillas;
 	private int contadorCasillasOcupadas;
 	
 	private Jugador jugador1;
@@ -28,48 +27,49 @@ public class Tateti extends Juego
 	{
 		setDirJuego("");
 		finalizo=false;
-		cantidadCasillas=9;
 		contadorCasillasOcupadas=0;
-		jugador1=new Jugador("O");
-		jugador2=new Jugador("X");
-		ui= new UITateti();
-		ui.comenzar();
+		setJugador1(new Jugador("O"));
+		setJugador2(new Jugador("X"));
 		tablero= new TableroTateti(5,5);
 		miReglamento = new ReglamentoTateti();
 		tablero.formatear();
 		tablero.print();
 	}
-	
+
 	public void jugar()
 	{
-		int unValor;
+		JugadaTateti unaJugada;
 		while(!finalizo)
 		{
-			JugadaTateti unaJugada=new JugadaTateti(tablero,miReglamento);
-			ui.imprimir("Elegi una casilla ingresando un numero entre el 1 y el 9");  
-		    unValor =ui.scanearValor();
-			if (unaJugada.validar(unValor))
-			{
-				unaJugada.jugar(contadorCasillasOcupadas);
-				ui.actualizar(tablero);
-				contadorCasillasOcupadas++;
-				finalizo= unaJugada.chequearFin(cantidadCasillas,contadorCasillasOcupadas);
-			}
-			else
-				ui.imprimir("Ese numero no, elegi otro");
+		    unaJugada=new JugadaTateti(tablero,miReglamento);
+			unaJugada.inicializar(); 
+			contadorCasillasOcupadas = unaJugada.jugar(contadorCasillasOcupadas);
+			finalizo = unaJugada.chequearFin(CANTIDAD_CASILLAS,contadorCasillasOcupadas);
 		}
 		cerrar();
 	}
 
-	public boolean finalizo() 
-	{
-		return false;
-	}
 	public void jugadaRecibida(JugadaTateti jugada) 
 	{
 	}
 	public void cerrar()
 	{
+	}
+	public Jugador getJugador1()
+	{
+		return jugador1;
+	}
+	public void setJugador1(Jugador jugador1)
+	{
+		this.jugador1 = jugador1;
+	}
+	public Jugador getJugador2()
+	{
+		return jugador2;
+	}
+	public void setJugador2(Jugador jugador2)
+	{
+		this.jugador2 = jugador2;
 	}
 
 }
