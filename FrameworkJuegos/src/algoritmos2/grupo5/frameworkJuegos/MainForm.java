@@ -4,17 +4,9 @@ public class MainForm
 {
 	public static void main(String[] args)
 	{
-		Tateti tateti=new Tateti();
-		tateti.inicializar();
-		tateti.jugar();
+		//JuegoManager.imprimirMenu();
+		IJuego juegoSeleccionado= (IJuego)JuegoManager.factory("TATETI");
+		juegoSeleccionado.inicializar();
+		juegoSeleccionado.jugar(); 
 	}
-	
-//	private void crearMenu()
-//	{
-//		
-//	}
-//	private void cargarJuego()
-//	{
-//		
-//	}	
 }
