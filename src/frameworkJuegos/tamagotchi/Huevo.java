@@ -1,12 +1,13 @@
 package frameworkJuegos.tamagotchi;
 
-public class Huevo extends Nivel implements INivel
+public class Huevo extends Nivel
 {
 	Tamagotchi miTamagotchi;
 	public Huevo(Tamagotchi unTamagotchi)
 	{
 		this.miTamagotchi=unTamagotchi;
 		inicializar();
+		super.inicializar();
 	}
 	public void inicializar()
 	{
@@ -19,37 +20,34 @@ public class Huevo extends Nivel implements INivel
 		setEnergiaMaxima(5);
 		setHambreMaxima(0);
 		setFelicidadMaxima(5);
-		InicializarMenu();
 	}
-	private void InicializarMenu()
+	public String nombre()
 	{
-		String[] unasOpciones=new String[2];
-		unasOpciones[0]="Eclosionar huevo";
-		unasOpciones[1]="	Matar";
+		return "Huevo";
 	}
 	public void gestionarMenu(int unaOpcion,Tamagotchi unTamagotchi)
 	{
 		switch(unaOpcion)
 		{
-			case 1: 
-				super.ui.imprimir("Tu huevo está listo!!!");
+			case 2: 
+				imprimir("Tu huevo está listo!!!");
 				crecer(unTamagotchi);
-				super.ui.imprimir("Muy bien, ahora tu mascota se convirtió en cachorro");
-				break;
-			case 2:
-				super.ui.imprimir("¿Estas seguro de querer matar a tu huevo?, tiene toda una vida por delante.");
-				super.ui.imprimir("Para confirmar presioná el número 3:");
+				imprimir("Muy bien, ahora tu mascota se convirtió en cachorro");
 				break;
 			case 3:
-				ui.imprimir("Tu huevo está muriendo...");
+				imprimir("¿Estas seguro de querer matar a tu huevo?, tiene toda una vida por delante.");
+				imprimir("Para confirmar presioná el número 4:");
+				break;
+			case 4:
+				imprimir("Tu huevo está muriendo...");
 				unTamagotchi.morir();
-				super.ui.imprimir("Q.E.P.D");
+				imprimir("Q.E.P.D");
 				break;
 		}
 	}
 	public void crecer(Tamagotchi unTamagotchi)
 	{
-		Nivel unCachorro=new Cachorro();
+		Nivel unCachorro=new Cachorro(unTamagotchi);
 		unTamagotchi.setNivel(unCachorro);
 	}
 	public int getNivelMinimoHambre()
@@ -80,8 +78,10 @@ public class Huevo extends Nivel implements INivel
 	@Override
 	public String[] getMenu()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		String[] unMenu=new String[2];
+		unMenu[0]="Eclosionar huevo";
+		unMenu[1]="	  Matar";
+		return unMenu;
 	}
 
 }

@@ -1,13 +1,7 @@
 package frameworkJuegos.tamagotchi;
 
 public abstract class Vivo extends Estado
-{
-
-	private int cantidadPuntosExtraSalud;
-	private int cantidadPuntosExtraEnergia;
-	private int cantidadPuntosExtraFelicidad;
-	private int cantidadPuntosExtraHambre;
-	
+{	
 	public abstract void comer(Tamagotchi unTamagotchi);
 	public abstract void jugar(Tamagotchi unTamagotchi);
 	public abstract void curar(Tamagotchi unTamagotchi);
@@ -17,49 +11,26 @@ public abstract class Vivo extends Estado
 	{
 		return true;
 	}
-	public void inicializar(Nivel unNivel)
-	{
-		setCantidadPuntosExtraEnergia(unNivel.getEnergiaMaxima()/2);
-		setCantidadPuntosExtraFelicidad(unNivel.getFelicidadMaxima()/2);
-		setCantidadPuntosExtraHambre(unNivel.getHambreMaxima()/4);
-		setCantidadPuntosExtraSalud(unNivel.getSaludMaxima()/2);
-	}
 	
 
 	
 	
 	//getters y setters----------------------------------------
-	public int getCantidadPuntosExtraSalud()
+	public int getCantidadPuntosExtraSalud(Nivel unNivel)
 	{
-		return cantidadPuntosExtraSalud;
+		return (unNivel.getSaludMaxima()/3);
 	}
-	public void setCantidadPuntosExtraSalud(int cantidadPuntosExtraSalud)
+	public int getCantidadPuntosExtraEnergia(Nivel unNivel)
 	{
-		this.cantidadPuntosExtraSalud = cantidadPuntosExtraSalud;
+		return (unNivel.getEnergiaMaxima()/3);
 	}
-	public int getCantidadPuntosExtraEnergia()
+	public int getCantidadPuntosExtraFelicidad(Nivel unNivel)
 	{
-		return cantidadPuntosExtraEnergia;
+		return (unNivel.getFelicidadMaxima()/3);
 	}
-	public void setCantidadPuntosExtraEnergia(int cantidadPuntosExtraEnergia)
+	public int getCantidadPuntosExtraHambre(Nivel unNivel)
 	{
-		this.cantidadPuntosExtraEnergia = cantidadPuntosExtraEnergia;
-	}
-	public int getCantidadPuntosExtraFelicidad()
-	{
-		return cantidadPuntosExtraFelicidad;
-	}
-	public void setCantidadPuntosExtraFelicidad(int cantidadPuntosExtraFelicidad)
-	{
-		this.cantidadPuntosExtraFelicidad = cantidadPuntosExtraFelicidad;
-	}
-	public int getCantidadPuntosExtraHambre()
-	{
-		return cantidadPuntosExtraHambre;
-	}
-	public void setCantidadPuntosExtraHambre(int cantidadPuntosExtrahambre)
-	{
-		this.cantidadPuntosExtraHambre = cantidadPuntosExtrahambre;
+		return (unNivel.getHambreMaxima()/3);
 	}
 	
 }

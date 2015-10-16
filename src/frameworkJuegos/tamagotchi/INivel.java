@@ -11,5 +11,5 @@ public interface INivel
     public String[] getMenu();
     public void crecer(Tamagotchi unTamagotchi);
 	public void gestionarMenu(int opcionElegida, Tamagotchi unTamagotchi);
-    
+	//public void imprimir();
 }

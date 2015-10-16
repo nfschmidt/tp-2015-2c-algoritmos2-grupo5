@@ -8,6 +8,10 @@ public abstract class Estado
 
 	public abstract boolean estasVivo();
 	
+	
+	
+	
+	//--getters y setters--------------------------------------
 	public Tamagotchi getMiTamagotchi()
 	{
 		return miTamagotchi;
@@ -15,6 +19,11 @@ public abstract class Estado
 	public void setMiTamagotchi(Tamagotchi miTamagotchi)
 	{
 		this.miTamagotchi = miTamagotchi;
+	}
+	public String nombre()
+	{
+		// TODO Auto-generated method stub
+		return "Normal";
 	}
 
 }

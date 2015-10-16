@@ -6,9 +6,8 @@ public class UITamagotchi extends UI
 {
 	private String[] menu;
 
-	public void inicializar(String[] unasOpciones) 
+	public void inicializar() 
 	{
-		menu = unasOpciones;
 	}
 
 	public String[] getMenu()
@@ -18,10 +17,12 @@ public class UITamagotchi extends UI
 	@Override
 	public void imprimirMenu(String[] unMenu)
 	{
-		imprimir("0-Poner/Cambiar nombre");
+		imprimir("0-Ver estado actual de tu mascota."); 
+		imprimir("1-Poner/Cambiar nombre");
 		for(int i=0;i<unMenu.length ;i++)
 		{
-			imprimir((i+1) + "-"+ unMenu[i]);
+			imprimir((i+2) + "-"+ unMenu[i]);
 		}
+		
 	}
 }

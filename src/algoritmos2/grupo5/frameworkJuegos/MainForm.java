@@ -5,7 +5,7 @@ public class MainForm
 	public static void main(String[] args)
 	{
 		//JuegoManager.imprimirMenu();
-		IJuego juegoSeleccionado= (IJuego)JuegoManager.factory("TATETI");
+		IJuego juegoSeleccionado= (IJuego)JuegoManager.factory("TAMAGOTCHI");
 		juegoSeleccionado.inicializar();
 		juegoSeleccionado.jugar(); 
 		juegoSeleccionado.cerrar();

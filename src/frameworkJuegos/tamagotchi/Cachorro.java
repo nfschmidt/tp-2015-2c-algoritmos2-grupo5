@@ -1,8 +1,14 @@
 package frameworkJuegos.tamagotchi;
 
-public class Cachorro extends Nivel implements INivel
+public class Cachorro extends Nivel 
 {
 	Tamagotchi miTamagotchi;
+	public Cachorro(Tamagotchi unTamagotchi)
+	{
+		this.miTamagotchi=unTamagotchi;
+		inicializar();
+		super.inicializar();
+	}
 	@Override
 	public void inicializar()
 	{
@@ -14,46 +20,10 @@ public class Cachorro extends Nivel implements INivel
 		setEnergiaMaxima(25);
 		setHambreMaxima(30);
 		setFelicidadMaxima(50);
-		inicializarMenu();
 	}
-
-	private void inicializarMenu()
+	public String nombre()
 	{
-		String[] unasOpciones=new String[6];
-		unasOpciones[0]="Alimentar";
-		unasOpciones[1]="Jugar con";
-		unasOpciones[2]="Dormir";
-		unasOpciones[3]="Curar";
-		unasOpciones[4]="Crecer";
-		unasOpciones[5]="	Matar";
-		//super.inicializar(unasOpciones);
-	}
-
-	@Override
-	public int getNivelMinimoHambre()
-	{
-		return 5;
-	}
-
-	public void dormir(Tamagotchi unTamagotchi)
-	{
-		// TODO Auto-generated method stub
-	}
-	@Override
-	public void comer(Tamagotchi unTamagotchi)
-	{
-		// TODO Auto-generated method stub
-	}
-	@Override
-	public void jugar(Tamagotchi unTamagotchi)
-	{
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void curar(Tamagotchi unTamagotchi)
-	{
-		// TODO Auto-generated method stub
+		return "Cachorr@";
 	}
 	@Override
 	public void crecer(Tamagotchi unTamagotchi)
@@ -61,83 +31,71 @@ public class Cachorro extends Nivel implements INivel
 		Nivel unJoven=new Joven(unTamagotchi);
 		unTamagotchi.setNivel(unJoven);
 	}
-	public void gestionarMenuzz(int unaOpcion,Tamagotchi unTamagotchi)
-	{
-		switch(unaOpcion)
-		{
 
-			case 2:
-				super.ui.imprimir("¿Estas seguro de queres matar a tu huevo?, tiene toda una vida por delante.");
-				super.ui.imprimir("Para confirmar presioná el número 3:");
-				break;
-			case 3:
-				super.ui.imprimir("Tu huevo está muriendo");
-				unTamagotchi.morir();
-				super.ui.imprimir("Q.E.P.D");
-				break;
-		}
-	}
 	@Override
 	public void gestionarMenu(int unaOpcion,Tamagotchi unTamagotchi)
 	{
 		switch(unaOpcion)
 		{
-			case 1://alimentar
-				super.ui.imprimir("Muy bien, al comer tu mascota reduce su hambre.");
+			case 2://alimentar
+				imprimir("Muy bien, al comer tu mascota reduce su hambre.");
 				comer(unTamagotchi);
 				if (unTamagotchi.getHambre()==0)
 				{
-					super.ui.imprimir("tu mascota está satisfecha." );
+					imprimir("tu mascota está satisfecha." );
 				}
 				else
 				{
-					super.ui.imprimir("Ahora tiene " +unTamagotchi.getHambre()+ " puntos de hambre." );
+					imprimir("Ahora tiene " +unTamagotchi.getHambre()+ " puntos de hambre." );
 				}
 				break;
-			case 2://jugar
-				super.ui.imprimir("Cuando jugan las mascotas aumentan su felicidad.");
+			case 3://jugar
+				imprimir("Cuando jugan las mascotas aumentan su felicidad.");
 				jugar(unTamagotchi);
-				super.ui.imprimir(unTamagotchi.getNombre() + " ahora tiene " + unTamagotchi.getFelicidad() + " puntos de felicidad");
+				imprimir(unTamagotchi.getNombre() + " ahora tiene " + unTamagotchi.getFelicidad() + " puntos de felicidad");
 				break;
-			case 3://dormir
-				super.ui.imprimir("Al dormir se recupera la energia,");
+			case 4://dormir
+				imprimir("Al dormir se recupera la energia,");
 				dormir(unTamagotchi);
-				super.ui.imprimir("tu mascota ahora tiene " + unTamagotchi.getEnergia() + " puntos de energia");
+				imprimir("tu mascota ahora tiene " + unTamagotchi.getEnergia() + " puntos de energia");
 				break;
-			case 4://curar
-				
-//				if (unTamagotchi.getSalud()== .getSaludMaxima())
-//				{
-//					super.ui.imprimir("Tu cachorro ya está muy saludable");
-//					//podria agregar el caso de sobredosis aca
-//				}
-//				else
-//				{
-//					curar(unTamagotchi);
-//					super.ui.imprimir("Tu cachorro está creciendo!!!");
-//				}
+			case 5://curar
+				if (unTamagotchi.getSalud()== getSaludMaxima())
+				{
+					imprimir("Tu cachorro ya está muy saludable");
+				}
+				else
+				{
+					curar(unTamagotchi);
+					imprimir(unTamagotchi.getNombre() +  " ahora tiene " + unTamagotchi.getSalud()  + " puntos de salud");
+				}
 				break;
-			case 5://crecer
-				super.ui.imprimir("Tu cachorro está creciendo!!!");
+			case 6://crecer
+				imprimir("Tu cachorro está creciendo!!!");
 				crecer(unTamagotchi);
-				super.ui.imprimir("Muy bien, ahora que tu mascota creció un poco aumentaron sus puntos de energia, felicidad y demás.");
+				imprimir("Muy bien, ahora que tu mascota creció un poco aumentaron sus puntos de energia, felicidad y demás.");
 				break;
-			case 6://matar
-				super.ui.imprimir("¿Estas seguro de querer matar a tu cachorro?, tiene toda una vida por delante.");
-				super.ui.imprimir("Para confirmar presioná el número 7:");
+			case 7://matar
+				imprimir("¿Estas seguro de querer matar a " + unTamagotchi.getNombre() + ", tiene toda una vida por delante.");
+				imprimir("Para confirmar presioná el número 8:");
 				break;
-			case 7://confirmar muerte
-				super.ui.imprimir("Tu cachorro está muriendo");
+			case 8://confirmar muerte
+				imprimir("Tu cachorro está muriendo");
 				unTamagotchi.morir();
-				super.ui.imprimir("Q.E.P.D");
+				imprimir("Q.E.P.D");
 				break;
 		}
 	}
-
 	@Override
 	public String[] getMenu()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		String[] unMenu=new String[6];
+		unMenu[0]="Alimentar";
+		unMenu[1]="Jugar con";
+		unMenu[2]="Dormir";
+		unMenu[3]="Curar";
+		unMenu[4]="Crecer";
+		unMenu[5]="	  Matar";
+		return unMenu;
 	}
 }

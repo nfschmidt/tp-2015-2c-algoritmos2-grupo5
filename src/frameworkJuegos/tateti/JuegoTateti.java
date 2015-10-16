@@ -10,7 +10,6 @@ public class JuegoTateti extends Juego
 
 	public void inicializar()
 	{
-		setDirJuego("");
 		tablero = new TableroTateti(5,5);
 		tablero.inicializar();
 		tablero.imprimir();

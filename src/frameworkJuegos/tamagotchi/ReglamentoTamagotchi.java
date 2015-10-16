@@ -12,14 +12,16 @@ public class ReglamentoTamagotchi extends Reglamento
 	}
 
 	@Override
-	public boolean esFin(IJugada unaJugada)
+	public boolean esGanador(IJugada unaJugada)
 	{
 		return false;
 	}
 
+
 	@Override
-	public boolean esGanador(IJugada unaJugada)
+	public boolean esFin(IJugada jugada)
 	{
+		// TODO Auto-generated method stub
 		return false;
 	}
 

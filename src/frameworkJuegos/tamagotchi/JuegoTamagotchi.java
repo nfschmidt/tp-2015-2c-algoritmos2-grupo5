@@ -1,12 +1,11 @@
 package frameworkJuegos.tamagotchi;
 
+import algoritmos2.grupo5.frameworkJuegos.IJugada;
 import algoritmos2.grupo5.frameworkJuegos.Juego;
 
 public class JuegoTamagotchi extends Juego
 {
-	private ReglamentoTamagotchi miReglamento; 
 	private Tamagotchi tamagotchi;
-	private boolean finalizo;
 	public  String getCategoria()
 	{
 		return "display lcd";
@@ -21,23 +20,23 @@ public class JuegoTamagotchi extends Juego
 	}
 	public void inicializar()
 	{
-		setDirJuego("");
-		finalizo = false;
-		miReglamento = new ReglamentoTamagotchi();
 		tamagotchi= new Tamagotchi();
 		tamagotchi.inicializar(); 
+		tamagotchi.imprimir();
+		super.inicializar();
+		super.listaAdd(tamagotchi);
 	}
 	
 	public void jugar()
 	{
-		JugadaTamagotchi unaJugada;
-		while(!finalizo)
+		IJugada unaJugada;
+		do
 		{
-			unaJugada = new JugadaTamagotchi(miReglamento,tamagotchi);
+			unaJugada = new JugadaTamagotchi(super.getListaGameObjects());
 			unaJugada.inicializar(); 
 			unaJugada.jugar();
-			finalizo = unaJugada.chequearFin();
-		}
+		}while(!unaJugada.chequearFin());
+		cerrar();
 	}
 
 	public void cerrar()

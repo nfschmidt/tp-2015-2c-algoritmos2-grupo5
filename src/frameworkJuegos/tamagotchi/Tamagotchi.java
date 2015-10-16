@@ -1,8 +1,10 @@
 package frameworkJuegos.tamagotchi;
 
-public  class Tamagotchi
+import algoritmos2.grupo5.frameworkJuegos.GameObject;
+
+public  class Tamagotchi extends GameObject
 {
-	private String nombre;
+	private String nombre="tu mascota";
 	private int energia;
 	private int hambre;
 	private int felicidad;
@@ -11,40 +13,32 @@ public  class Tamagotchi
 	private Estado estadoActual;
 	private Nivel nivel;
 
-	public Tamagotchi()
-	{
-		inicializar();
-	}
 	public  void inicializar()
 	{
 		Nivel huevo = new Huevo(this);
 		nivel=huevo;
 		setEstadoActual(new Normal(huevo));
 	}
-	public String[] getMenu()
+	@Override
+	public void imprimir()
 	{
-		return getMenu();
+		//nivel.imprimir();
 	}
+	@Override
+	public void actualizar()
+	{
+		// TODO Auto-generated method stub
+	}
+
 	public void procesarOpcionElegida(int opcionElegida)
 	{
-		//gestionarMenu(opcionElegida,this);
-	}
-	public void vivir()
-	{
-	
+		nivel.gestionarMenu(opcionElegida,this);
 	}
 	public void morir()
 	{
 		estadoActual = new Muerto();
 	}
-	public void sumarDia()
-	{
-		this.diasDeVida ++;
-	}
-	public int getNivelMinimoHambre()
-	{
-		return getNivelMinimoHambre();
-	}
+
 	public boolean estasVivo()
 	{
 		return estadoActual.estasVivo();
@@ -54,6 +48,13 @@ public  class Tamagotchi
 	   return (estadoActual.puedeAfectarA(this));
 	}
 	
+	
+	
+	//---actualizar valores-----------------------------------------
+	public void sumarDia()
+	{
+		this.diasDeVida ++;
+	}
 	public void aumentarSalud(int unaCantidad)
 	{		
 		int saludMaximaNivel= nivel.getSaludMaxima();
@@ -76,13 +77,31 @@ public  class Tamagotchi
 	}
 	public void disminuirHambre(int unValor)
 	{
-		this.hambre = Math.max(0,hambre + unValor);
+		this.hambre = Math.max(0,hambre - unValor);
+	}	
+	public void disminuirEnergia(int unValor)
+	{
+		this.energia = Math.max(0,energia - unValor);
+	}	
+	public void disminuirFelicidad(int unValor)
+	{
+		this.felicidad = Math.max(0,felicidad - unValor);
+	}	
+	public void disminuirSalud(int unValor)
+	{
+		this.salud = Math.max(0,salud - unValor);
 	}	
 	
 	
-	
-	
 	//--getters y setters---------------------------
+	public String[] getMenu()
+	{
+		return nivel.getMenu();
+	}
+	public int getNivelMinimoHambre()
+	{
+		return nivel.getNivelMinimoHambre();
+	}
 	public void setNivel(Nivel unNivel)
 	{
 		nivel= unNivel;
@@ -90,6 +109,10 @@ public  class Tamagotchi
 	public Nivel getNivel()
 	{
 		return nivel;
+	}
+	public Estado getEstadoActual()
+	{
+		return estadoActual;
 	}
 	public int getEnergia()
 	{
@@ -143,5 +166,6 @@ public  class Tamagotchi
 	{
 		diasDeVida= unosDias;
 	}
+
 
 }
