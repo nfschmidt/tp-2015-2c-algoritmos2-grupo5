@@ -15,4 +15,7 @@ public class Jugador
 	{
 		this.nombre =nombre;
 	}
+	
+	//El juego le ordenara al jugador que juegue y este devolvera una jugada.
+	public abstract Jugada jugar();
 }

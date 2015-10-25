@@ -8,4 +8,7 @@ public abstract class Reglamento
 	
 	public abstract boolean validarJugada(Jugada jugada);
 	public abstract boolean esFinDeTurno(Tablero tablero);
+	
+	public abstract Jugador obtenerJugadorInicial();
+	public abstract Jugador proximoJugador();
 }
