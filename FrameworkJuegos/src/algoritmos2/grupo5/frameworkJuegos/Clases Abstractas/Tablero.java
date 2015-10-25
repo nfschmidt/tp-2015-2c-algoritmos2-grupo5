@@ -58,4 +58,5 @@ public class Tablero
 			System.out.println("");
 		}
 	}
+	public void ejecutarJugada(Jugada jugada);
 }

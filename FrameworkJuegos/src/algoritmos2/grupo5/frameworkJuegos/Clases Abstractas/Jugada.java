@@ -3,8 +3,11 @@ package algoritmos2.grupo5.frameworkJuegos;
 
 public class Jugada
 {
+	//Properties
 	private Tablero tablero;
 	private Reglamento reglamento;
+	
+	//Methods
 	public Tablero getTablero()
 	{
 		return tablero;
