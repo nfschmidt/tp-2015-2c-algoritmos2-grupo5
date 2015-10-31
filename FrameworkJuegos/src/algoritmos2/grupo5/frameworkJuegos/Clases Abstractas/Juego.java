@@ -1,5 +1,7 @@
 package algoritmos2.grupo5.frameworkJuegos;
 
+import algoritmos2.grupo5.frameworkJuegos.Reglamento;
+
 public abstract class Juego {
 	
 	//Properties
@@ -7,7 +9,7 @@ public abstract class Juego {
 	public List<Jugador> jugadores;
 	public Tablero tablero;
 	private String dirJuego; //path del directorio donde se ubican los recursos del juego en caso de tener alguno
-	
+	private UI ui;
 	
 	//Methods	
 	public String getDirJuego()
@@ -22,41 +24,42 @@ public abstract class Juego {
 	public abstract String getCategoria();//la categoria me permite agrupar por tipo de juego, para poder armar un menu por ejemplo
 	public abstract String getNombre();//nombre del juego que se ve en el menu
 	public abstract String getDescripcion();
-	public abstract void inicializar();
 	public abstract void cerrar();
 	
 	
 	public abstract void ejecutarJugada(Jugada jugada);
 	public abstract Jugador proximoJugador();
+	//Definir los parametros iniciales para cada juego puntual
+	public abstract void inicializarValores();
+
+	//Metodo plantilla
+	public void inicializar(Reglamento reglamento, Tablero tablero, UI ui){
+		this.reglamento = reglamento;
+		this.tablero = tablero;
+		this.ui = ui;
+		
+		this.inicializarValores();
+	}
 	
 	//Jugar se comportaria como metodo plantilla. Las clases que extienden el metodo no lo redefinen.
 	//Solo se redefinen los metodos internos
-	public final void jugar(){		
-		inicializar();
+	public final void jugar(Jugada jugada){					
+										
+		//Validacion de juego. Reglamento => validar tablero
+		reglamento.validarJugada(jugada);
 		
-		Jugador jugadorActual = this.reglamento.obtenerJugadorInicial();
-		Jugada jugadaActual = null;
+		//Ejecutar jugada
+		jugada.ejecutar(this.tablero);
 		
-		while (!reglamento.esFin()){
-			
-			//Jugador => ejecuta su jugada
-			jugadaActual = jugadorActual.jugar();
-			
-			//Validacion de juego. Reglamento => validar tablero, devolver proximo jugador
-			while (!reglamento.validarJugada(jugadaActual)){				
-				jugadaActual = jugadorActual.jugar();				
-			}
-			
-			//Ejecutar jugada
-			this.tablero.ejecutarJugada(jugadaActual);
-			//Es fin de juego?
-			if(!reglamento.esFin()){
-				//Obtengo proximo jugador
-				jugadorActual = reglamento.proximoJugador();
-			}
-		}		
-		cerrar();		
-		
+		//Es fin de juego?
+		if(!reglamento.esFin()){
+			//Obtengo proximo jugador, lo envio a la interfaz
+			ui.proximoJugador(reglamento.proximoJugador());
+		}
+		else
+		{
+			ui.finDeJuego();
+		}
 	}
 	
 	

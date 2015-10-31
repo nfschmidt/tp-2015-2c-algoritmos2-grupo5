@@ -1,30 +1,16 @@
 package algoritmos2.grupo5.frameworkJuegos;
 
-import java.util.ArrayList;
+import algoritmos2.grupo5.frameworkJuegos.Reglamento;
 
-public abstract class Juego implements IJuego{
-
-	public void inicializar()
-	{
-		listaGameObjects= new ArrayList<IGameObject>();
-	}
-
-	public abstract void cerrar();
-	public abstract void jugar();
+public abstract class Juego {
+	
+	//Properties
+	public Reglamento reglamento;
+	public Tablero tablero;
 	private String dirJuego; //path del directorio donde se ubican los recursos del juego en caso de tener alguno
-	private IUI ui;
-	private ArrayList<IGameObject> listaGameObjects;
-	public void listaAdd(IGameObject unGameObject)
-	{
-		listaGameObjects.add(unGameObject);
-	}
+	private UI ui;
 	
-	
-	
-	//-getters y setters--------------------------
-	public abstract String getCategoria();//la categoria me permite agrupar por tipo de juego, para poder armar un menu por ejemplo
-	public abstract String getNombre();//nombre del juego que se ve en el menu
-	public abstract String getDescripcion();
+	//Methods	
 	public String getDirJuego()
 	{
 		return dirJuego;
@@ -33,21 +19,45 @@ public abstract class Juego implements IJuego{
     {
     	this.dirJuego = path;
     }
-	public IUI getUi()
-	{
-		return ui;
-	}
-	public void setUi(IUI ui)
-	{
+    
+	public abstract String getCategoria();//la categoria me permite agrupar por tipo de juego, para poder armar un menu por ejemplo
+	public abstract String getNombre();//nombre del juego que se ve en el menu
+	public abstract String getDescripcion();
+
+	//Definir los parametros iniciales para cada juego puntual
+	public abstract void inicializarValores();
+
+	//Metodo plantilla
+	public void inicializar(Reglamento reglamento, Tablero tablero, UI ui){
+		this.reglamento = reglamento;
+		this.tablero = tablero;
 		this.ui = ui;
+		ui.setJuego(this);
+		
+		this.inicializarValores();
 	}
-	public ArrayList<IGameObject> getListaGameObjects()
-	{
-		return listaGameObjects;
+	
+	//Jugar se comportaria como metodo plantilla. Las clases que extienden el metodo no lo redefinen.
+	//Solo se redefinen los metodos internos
+	public final void jugar(Jugada jugada){					
+										
+		//Validacion de juego. Reglamento => validar tablero
+		reglamento.validarJugada(jugada);
+		
+		//Ejecutar jugada
+		jugada.ejecutar(this.tablero);
+		
+		//Es fin de juego?
+		if(!reglamento.esFin()){
+			//Obtengo proximo jugador, lo envio a la interfaz
+			ui.proximoJugador(reglamento.proximoJugador());
+		}
+		else
+		{
+			ui.finDeJuego();
+		}
 	}
-	public void setListaGameObjects(ArrayList<IGameObject> listaGameObjects)
-	{
-		this.listaGameObjects = listaGameObjects;
-	}
+	
+	
 }
 

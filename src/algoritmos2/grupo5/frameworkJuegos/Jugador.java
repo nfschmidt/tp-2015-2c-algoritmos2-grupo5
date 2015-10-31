@@ -1,11 +1,11 @@
 package algoritmos2.grupo5.frameworkJuegos;
 
-public class Jugador
+public abstract class Jugador
 {
 	private String nombre;
 	public Jugador(String nombre)
 	{
-		this.nombre =nombre;
+		this.nombre = nombre;
 	}
 	public String getNombre()
 	{
@@ -15,4 +15,7 @@ public class Jugador
 	{
 		this.nombre =nombre;
 	}
+	
+	//El juego le ordenara al jugador que juegue y este devolvera una jugada.
+	public abstract Jugada jugar();
 }

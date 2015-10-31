@@ -3,9 +3,27 @@ package algoritmos2.grupo5.frameworkJuegos;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public abstract class UI implements IUI
+public abstract class UI
 {
+	public Jugador jugadorActual;
 	Scanner scanner;
+	public boolean esFinDeJuego = false;
+	public Juego juego;
+	public FactoryJugada factoryJugada;
+	public Tablero tablero;
+	
+	public void setFactoryJugada(FactoryJugada factory){
+		this.factoryJugada = factory;
+	}
+	
+	public void setJuego(Juego juego) {
+		this.juego = juego;
+	}
+	
+	public void setTablero(Tablero tablero) {
+		this.tablero = tablero;
+	}
+	
 	public void comenzar()
 	{
 		scanner=new Scanner(System.in);
@@ -40,6 +58,7 @@ public abstract class UI implements IUI
 		{
 			try
 			{
+				System.out.print("Ingrese su jugada: ");
 				return scanner.next();
 			}
 			catch (Exception ex)
@@ -56,4 +75,32 @@ public abstract class UI implements IUI
 		System.out.println(mensaje);
 	}
 	public abstract void imprimirMenu(String[] unMenu);
+	public abstract void proximaJugada();
+	public abstract void finalizarJuego();
+	
+	public void finDeJuego(){
+		this.esFinDeJuego = true;		
+		finalizarJuego();
+	}
+
+	
+	public void proximoJugador(Jugador jugador){
+		jugadorActual = jugador;			
+	}
+	
+	//Metodo que escuchara las jugadas de cada jugador
+	public void interactuar(){
+		
+		while(!esFinDeJuego){
+			tablero.print();
+			String input = this.scanearCadena();
+			Jugada jugada = this.factoryJugada.getJugada(input);
+			
+			try {
+				this.juego.jugar(jugada);
+			} catch (JugadaInvalida e){
+				imprimir("La jugada no es valida.");
+			}
+		}
+	}	
 }

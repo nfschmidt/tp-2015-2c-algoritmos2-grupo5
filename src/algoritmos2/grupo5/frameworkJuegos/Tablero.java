@@ -1,22 +1,39 @@
 package algoritmos2.grupo5.frameworkJuegos;
 
-public abstract class Tablero extends GameObject
+public abstract class Tablero
 {
 	private int filas;
 	private int columnas;
 	private String[][] tablero;
-
+	public Tablero()//(int f, int c)
+	{
+	//	tablero = new String[f][c];
+//		filas=f;
+//		columnas=c;
+	}
+	public void setFilas(int filas)
+	{
+		this.filas = filas;
+	}
+	public void setColumnas(int columnas)
+	{
+		this.columnas = columnas;
+	}
 	public void dimTablero(int f, int c)
 	{
 		tablero = new String[f][c];
 	}
-
+	public String[][] getTablero()
+	{
+		return tablero;
+	}
 	public int getPosicion(String unValor)
 	{
 		for(int i=0;i<filas;i++)
 		{
 			for(int j=0;j<columnas;j++)
 			{
+				//System.out.print(tablero[i][j]);
 				if(tablero[i][j].equals(unValor))
 				{
 					return (i*10) + j;
@@ -30,7 +47,7 @@ public abstract class Tablero extends GameObject
 	{
 		tablero[f][c]= valor;
 	}
-	public void imprimir()
+	public void print()
 	{
 		for(int i=0;i<filas;i++)
 		{
@@ -41,22 +58,5 @@ public abstract class Tablero extends GameObject
 			System.out.println("");
 		}
 	}
-	
-	public abstract void inicializar();
-	
-	
-	
-	//-----getters y setters----------------------------------------
-	public void setFilas(int filas)
-	{
-		this.filas = filas;
-	}
-	public void setColumnas(int columnas)
-	{
-		this.columnas = columnas;
-	}
-	public String[][] getTablero()
-	{
-		return tablero;
-	}
+	public abstract void ejecutarJugada(Jugada jugada);
 }
