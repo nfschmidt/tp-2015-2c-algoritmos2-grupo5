@@ -1,7 +1,10 @@
 package frameworkJuegos.tateti;
 
 import algoritmos2.grupo5.frameworkJuegos.IJugada;
+import algoritmos2.grupo5.frameworkJuegos.Jugada;
+import algoritmos2.grupo5.frameworkJuegos.Jugador;
 import algoritmos2.grupo5.frameworkJuegos.Reglamento;
+import algoritmos2.grupo5.frameworkJuegos.Tablero;
 
 public class ReglamentoTateti extends Reglamento
 {
@@ -29,5 +32,51 @@ public class ReglamentoTateti extends Reglamento
 		int contadorCasillas = jugada.getTablero().getContadorCasillasOcupadas();
 		return (cantidadCasillas == contadorCasillas);
 	}
+
+	@Override
+	public boolean esFin()
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean esGanador()
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean jugadaValida(Jugada jugada, Tablero tablero)
+	{
+		boolean esValida;
+		esValida = jugada.getPosicionX() <= tablero.getFilas() && jugada.getPosicionY() <= tablero.getColumnas();
+		esValida = esValida && tablero.grilla[jugada.getPosicionX()][jugada.getPosicionY()].length() == 0;
+		
+		return esValida;
+	}
+
+	@Override
+	public boolean esFinDeTurno(Tablero tablero)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Jugador obtenerJugadorInicial()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Jugador proximoJugador()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

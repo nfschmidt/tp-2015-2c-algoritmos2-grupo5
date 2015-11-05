@@ -28,7 +28,7 @@ public abstract class Juego {
 	public abstract void inicializarValores();
 
 	//Metodo plantilla
-	public void inicializar(Reglamento reglamento, Tablero tablero, UI ui){
+	public final void inicializar(Reglamento reglamento, Tablero tablero, UI ui){
 		this.reglamento = reglamento;
 		this.tablero = tablero;
 		this.ui = ui;
@@ -42,7 +42,7 @@ public abstract class Juego {
 	public final void jugar(Jugada jugada){					
 										
 		//Validacion de juego. Reglamento => validar tablero
-		reglamento.validarJugada(jugada);
+		reglamento.validarJugada(jugada, this.tablero);
 		
 		//Ejecutar jugada
 		jugada.ejecutar(this.tablero);

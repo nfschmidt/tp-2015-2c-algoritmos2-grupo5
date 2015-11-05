@@ -2,9 +2,9 @@ package algoritmos2.grupo5.frameworkJuegos;
 
 public abstract class Tablero
 {
-	private int filas;
-	private int columnas;
-	private String[][] tablero;
+	public int filas;
+	public int columnas;
+	public String[][] grilla;
 	public Tablero()//(int f, int c)
 	{
 	//	tablero = new String[f][c];
@@ -19,13 +19,13 @@ public abstract class Tablero
 	{
 		this.columnas = columnas;
 	}
-	public void dimTablero(int f, int c)
+	public void dimGrilla(int f, int c)
 	{
-		tablero = new String[f][c];
+		grilla = new String[f][c];
 	}
-	public String[][] getTablero()
+	public String[][] getGrilla()
 	{
-		return tablero;
+		return grilla;
 	}
 	public int getPosicion(String unValor)
 	{
@@ -34,7 +34,7 @@ public abstract class Tablero
 			for(int j=0;j<columnas;j++)
 			{
 				//System.out.print(tablero[i][j]);
-				if(tablero[i][j].equals(unValor))
+				if(grilla[i][j].equals(unValor))
 				{
 					return (i*10) + j;
 				}
@@ -45,18 +45,27 @@ public abstract class Tablero
 	
 	public void setCasilla(String valor, int f,int c)
 	{
-		tablero[f][c]= valor;
+		grilla[f][c]= valor;
 	}
+	
+	public int getFilas(){
+		return this.filas;
+	}
+	
+	public int getColumnas(){
+		return this.columnas;
+	}
+	
 	public void print()
 	{
 		for(int i=0;i<filas;i++)
 		{
 			for(int j=0;j<columnas;j++)
 			{
-				System.out.print(tablero[i][j]);
+				System.out.print(grilla[i][j]);
 			}
 			System.out.println("");
 		}
 	}
-	public abstract void ejecutarJugada(Jugada jugada);
+
 }

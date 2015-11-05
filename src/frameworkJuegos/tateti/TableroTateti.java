@@ -8,46 +8,23 @@ public class TableroTateti extends Tablero
 	private int cantidaCasillas;
 	private int contadorCasillasOcupadas;
 	
-	public TableroTateti(int f, int c)
+	
+	public TableroTateti()
 	{
-		setContadorCasillasOcupadas(0);
-		setCantidaCasillas(9);
-		super.setFilas(f);
-		super.setColumnas(c);
-		super.dimTablero(f,c);
-	}
-	public void inicializar()
-	{
-		int contador=1;
-		String unValor;
-		for (int i=0;i<5;i++)
-		{
-			for (int j=0;j<5;j++)
-			{
-				if (i%2==0) 
-					{
-						if (j%2==0) 
-							{
-								unValor=Integer.toString(contador);
-								setCasilla(unValor,i,j);
-								contador++;
-							}
-						else setCasilla("|",i,j);
-					}
-				else setCasilla("-",i,j);
-			}
-		}
-	}
-	@Override
-	public void actualizar()
-	{
-		// TODO Auto-generated method stub
+		super.setFilas(3);
+		super.setColumnas(3);
+		super.dimGrilla(3,3);
 	}
 	
-	public void aumentarContadorCasillasOcupadas()
+	public void inicializar()
 	{
-		contadorCasillasOcupadas++;
+		for (int i = 0; i < this.getFilas(); i++){
+			for (int j = 0; j < this.getColumnas(); j++){
+				this.grilla[i][j] = "";
+			}
+		}		
 	}
+
 	
 	
 	
@@ -57,17 +34,8 @@ public class TableroTateti extends Tablero
 	{
 		return cantidaCasillas;
 	}
-	private void setCantidaCasillas(int cantidaCasillas)
-	{
-		this.cantidaCasillas = cantidaCasillas;
-	}
 	public int getContadorCasillasOcupadas()
 	{
 		return contadorCasillasOcupadas;
-	}
-	private void setContadorCasillasOcupadas(int contadorCasillasOcupadas)
-	{
-		this.contadorCasillasOcupadas = contadorCasillasOcupadas;
-	}
-
+	}	
 }

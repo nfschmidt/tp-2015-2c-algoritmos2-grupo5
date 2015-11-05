@@ -3,17 +3,21 @@ package frameworkJuegos.tateti;
 import java.util.ArrayList;
 import algoritmos2.grupo5.frameworkJuegos.IGameObject;
 import algoritmos2.grupo5.frameworkJuegos.Jugada;
+import algoritmos2.grupo5.frameworkJuegos.Tablero;
 
 public class JugadaTateti extends Jugada
 {	
 	private UITateti ui;
 	private static int unaPosicion;
 	private TableroTateti tablero;
+
+	
+	
 	public JugadaTateti(ArrayList<IGameObject> unaListaGameObjects)
 	{
 		this.tablero = (TableroTateti)unaListaGameObjects.get(0);
 	}
-	public void inicializar()
+	/*public void inicializar()
 	{
 		ui= new UITateti();
 		ui.comenzar();
@@ -41,7 +45,8 @@ public class JugadaTateti extends Jugada
 		{
 			ui.imprimir("Ese numero no, elegi otro");
 		}
-	 }
+	 }*/
+	
 	 public String getCaracter(int casillasOcupadas)
 	 {
 			if (casillasOcupadas%2==0)
@@ -54,6 +59,25 @@ public class JugadaTateti extends Jugada
 	 {
 		 return tablero;
 	 }
+	@Override
+	public void ejecutar(Tablero tablero)
+	{
+		tablero.setCasilla(this.ficha,this.posicionX,this.posicionY);
+	}
+
+	@Override
+	public void inicializar()
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void jugar()
+	{
+		// TODO Auto-generated method stub
+		
+	}
 
  }
 

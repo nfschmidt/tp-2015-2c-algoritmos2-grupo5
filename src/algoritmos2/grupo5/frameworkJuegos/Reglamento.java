@@ -6,13 +6,13 @@ public abstract class Reglamento
 	public abstract boolean esFin();
 	public abstract boolean esGanador();
 	
-	public final void validarJugada(Jugada jugada){
-		if(!jugadaValida(jugada)){
+	public final void validarJugada(Jugada jugada, Tablero tablero){
+		if(!jugadaValida(jugada, tablero)){
 			throw new JugadaInvalida();
 		}
 	}
 	
-	public abstract boolean jugadaValida(Jugada jugada);
+	public abstract boolean jugadaValida(Jugada jugada, Tablero tablero);
 	public abstract boolean esFinDeTurno(Tablero tablero);
 	
 	public abstract Jugador obtenerJugadorInicial();

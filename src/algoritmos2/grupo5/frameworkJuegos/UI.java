@@ -12,6 +12,11 @@ public abstract class UI
 	public FactoryJugada factoryJugada;
 	public Tablero tablero;
 	
+	//Abstract methods
+	public abstract void imprimirMenu(String[] unMenu);
+	public abstract void proximaJugada();
+	public abstract void finalizarJuego();
+	
 	public void setFactoryJugada(FactoryJugada factory){
 		this.factoryJugada = factory;
 	}
@@ -74,9 +79,8 @@ public abstract class UI
 	{
 		System.out.println(mensaje);
 	}
-	public abstract void imprimirMenu(String[] unMenu);
-	public abstract void proximaJugada();
-	public abstract void finalizarJuego();
+
+
 	
 	public void finDeJuego(){
 		this.esFinDeJuego = true;		
@@ -102,5 +106,7 @@ public abstract class UI
 				imprimir("La jugada no es valida.");
 			}
 		}
-	}	
+	}
+	
+	
 }

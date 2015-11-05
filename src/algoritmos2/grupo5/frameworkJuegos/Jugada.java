@@ -6,6 +6,9 @@ public abstract class Jugada
 {
 	//private Reglamento reglamento;
 	private ArrayList<IGameObject> listaGameObjects;
+	public int posicionX;
+	public int posicionY;
+	public String ficha;
 
 	public abstract void inicializar();
 	public abstract void jugar();
@@ -28,6 +31,20 @@ public abstract class Jugada
 	{
 		this.reglamento = reglamento;
 	}*/
+	 public int getPosicionX(){
+		 return this.posicionX;
+	 }
+	 public void setPosicionX(int valor){
+		 this.posicionX = valor;
+	 }
+	 
+	 public int getPosicionY(){
+		 return this.posicionY;
+	 }
+	 public void setPosicionY(int valor){
+		 this.posicionY = valor;
+	 }
+	
 	
 	public abstract void ejecutar(Tablero tablero);
 }

@@ -6,10 +6,23 @@ import algoritmos2.grupo5.frameworkJuegos.Juego;
 
 public class JuegoTateti extends Juego
 { 
-	private IGameObject tablero; 
-
+	//---getters  y setters-------------------------------------------
+	public  String getCategoria()
+	{
+		return null;
+	}
+	public  String getNombre()
+	{
+		return "Ta-Te-Ti";
+	}
+	public  String getDescripcion()
+	{
+		return "Juego para dos jugadores donde gana el que consigue hacer linea primero";
+	}
+	
 	public void inicializar()
 	{
+		
 		tablero = new TableroTateti(5,5);
 		tablero.inicializar();
 		tablero.imprimir();
@@ -33,20 +46,12 @@ public class JuegoTateti extends Juego
 	{
 	}
 	
-	
-	
-	//---getters  y setters-------------------------------------------
-	public  String getCategoria()
+
+	@Override
+	public void inicializarValores()
 	{
-		return null;
-	}
-	public  String getNombre()
-	{
-		return "Ta-Te-Ti";
-	}
-	public  String getDescripcion()
-	{
-		return "Juego para dos jugadores donde gana el que consigue hacer linea primero";
+		// TODO Auto-generated method stub
+		
 	}
 
 }

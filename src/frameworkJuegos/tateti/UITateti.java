@@ -27,4 +27,18 @@ public class UITateti extends UI {
 	{
 		// TODO Auto-generated method stub
 	}
+
+	@Override
+	public void proximaJugada()
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void finalizarJuego()
+	{
+		// TODO Auto-generated method stub
+		
+	}
 }
