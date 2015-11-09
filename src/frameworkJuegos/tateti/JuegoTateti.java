@@ -21,16 +21,15 @@ public class JuegoTateti extends Juego
 	}
 	
 	public void inicializar()
-	{
-		
-		tablero = new TableroTateti(5,5);
+	{		
+		tablero = new TableroTateti();
 		tablero.inicializar();
-		tablero.imprimir();
+/*		tablero.imprimir();
 		super.inicializar();
-		super.listaAdd(tablero);
+		super.listaAdd(tablero);*/
 	}
 	
-	public void jugar()
+	/*public void jugar()
 	{
 		IJugada unaJugada;
 		do
@@ -40,7 +39,7 @@ public class JuegoTateti extends Juego
 			unaJugada.jugar();	
 		}while(!unaJugada.chequearFin());
 		cerrar();
-	}
+	}*/
 	
 	public void cerrar()
 	{

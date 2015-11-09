@@ -8,7 +8,7 @@ public abstract class Jugada
 	private ArrayList<IGameObject> listaGameObjects;
 	public int posicionX;
 	public int posicionY;
-	public String ficha;
+	public Jugador jugador;
 
 	public abstract void inicializar();
 	public abstract void jugar();
@@ -43,6 +43,13 @@ public abstract class Jugada
 	 }
 	 public void setPosicionY(int valor){
 		 this.posicionY = valor;
+	 }
+	 
+	 public Jugador getJugador(){
+		 return this.jugador;
+	 }
+	 public void setJugador(Jugador jugador){
+		 this.jugador = jugador;
 	 }
 	
 	

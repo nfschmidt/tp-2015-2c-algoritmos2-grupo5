@@ -3,7 +3,7 @@ package algoritmos2.grupo5.frameworkJuegos;
 public abstract class Reglamento
 {
 	public abstract boolean esValida(int unaPosicion);
-	public abstract boolean esFin();
+	public abstract boolean esFin(Tablero tablero);
 	public abstract boolean esGanador();
 	
 	public final void validarJugada(Jugada jugada, Tablero tablero){
@@ -16,5 +16,6 @@ public abstract class Reglamento
 	public abstract boolean esFinDeTurno(Tablero tablero);
 	
 	public abstract Jugador obtenerJugadorInicial();
-	public abstract Jugador proximoJugador();
+	public abstract Jugador proximoJugador(Jugador jugadorAnterior);
+
 }

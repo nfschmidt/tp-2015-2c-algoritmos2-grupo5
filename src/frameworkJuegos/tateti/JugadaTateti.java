@@ -62,7 +62,7 @@ public class JugadaTateti extends Jugada
 	@Override
 	public void ejecutar(Tablero tablero)
 	{
-		tablero.setCasilla(this.ficha,this.posicionX,this.posicionY);
+		tablero.setCasilla(this.getJugador().getFicha(),this.posicionX,this.posicionY);
 	}
 
 	@Override

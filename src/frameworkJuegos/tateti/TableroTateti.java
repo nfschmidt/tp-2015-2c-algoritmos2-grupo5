@@ -16,6 +16,7 @@ public class TableroTateti extends Tablero
 		super.dimGrilla(3,3);
 	}
 	
+	@Override
 	public void inicializar()
 	{
 		for (int i = 0; i < this.getFilas(); i++){

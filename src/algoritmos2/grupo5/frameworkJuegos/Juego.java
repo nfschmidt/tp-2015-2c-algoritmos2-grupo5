@@ -1,5 +1,7 @@
 package algoritmos2.grupo5.frameworkJuegos;
 
+import java.util.List;
+
 import algoritmos2.grupo5.frameworkJuegos.Reglamento;
 
 public abstract class Juego {
@@ -9,6 +11,7 @@ public abstract class Juego {
 	public Tablero tablero;
 	private String dirJuego; //path del directorio donde se ubican los recursos del juego en caso de tener alguno
 	private UI ui;
+	public List<Jugador> Jugadores;
 	
 	//Methods	
 	public String getDirJuego()
@@ -48,9 +51,9 @@ public abstract class Juego {
 		jugada.ejecutar(this.tablero);
 		
 		//Es fin de juego?
-		if(!reglamento.esFin()){
+		if(!reglamento.esFin(this.tablero)){
 			//Obtengo proximo jugador, lo envio a la interfaz
-			ui.proximoJugador(reglamento.proximoJugador());
+			ui.proximoJugador(reglamento.proximoJugador(jugada.getJugador()));
 		}
 		else
 		{

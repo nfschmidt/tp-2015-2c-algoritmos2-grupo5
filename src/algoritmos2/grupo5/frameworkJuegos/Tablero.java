@@ -67,5 +67,7 @@ public abstract class Tablero
 			System.out.println("");
 		}
 	}
+	
+	public abstract void inicializar();
 
 }
