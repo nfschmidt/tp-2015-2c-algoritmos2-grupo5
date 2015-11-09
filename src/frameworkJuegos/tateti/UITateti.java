@@ -6,10 +6,10 @@ import algoritmos2.grupo5.frameworkJuegos.UI;
 public class UITateti extends UI {
 	protected JuegoTateti juego;
 
-	public void actualizar(Tablero tablero)
-	{
-		tablero.imprimir();
-	}
+//	public void actualizar(Tablero tablero)
+//	{
+//		tablero.imprimir();
+//	}
 
 	public void cerrar()
 	{

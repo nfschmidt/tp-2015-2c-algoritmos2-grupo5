@@ -108,5 +108,26 @@ public abstract class UI
 		}
 	}
 	
+	public final void imprimir(Tablero tablero){
+		String grilla = "";
+		String separador = "";
+		for(int i = 0; i < tablero.getFilas() -1; i++){
+			for(int j = 0; j < tablero.getColumnas() -1; i++){
+				grilla = grilla + " " + tablero.grilla[i][j];
+				
+				if(j < tablero.getColumnas() - 1){
+					grilla = grilla + " |";
+				}
+				else{
+					grilla = grilla + " ";
+				}
+				separador += "----";
+			}
+			grilla = grilla + '\n';
+			if (i < tablero.getFilas() - 1 ){
+				grilla = grilla + separador + '\n';
+			}
+		}
+	}
 	
 }
