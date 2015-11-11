@@ -1,5 +1,6 @@
 package algoritmos2.grupo5.frameworkJuegos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import algoritmos2.grupo5.frameworkJuegos.Reglamento;
@@ -9,58 +10,62 @@ public abstract class Juego {
 	//Properties
 	public Reglamento reglamento;
 	public Tablero tablero;
-	private String dirJuego; //path del directorio donde se ubican los recursos del juego en caso de tener alguno
 	private UI ui;
-	public List<Jugador> Jugadores;
+	public List<Jugador> jugadores;
+	protected Jugador jugadorActual;
+	protected FactoryJuego factoryJuego;
 	
-	//Methods	
-	public String getDirJuego()
-	{
-		return dirJuego;
-	}
-    public void setDirJuego(String path)
-    {
-    	this.dirJuego = path;
-    }
-    
-	public abstract String getCategoria();//la categoria me permite agrupar por tipo de juego, para poder armar un menu por ejemplo
-	public abstract String getNombre();//nombre del juego que se ve en el menu
-	public abstract String getDescripcion();
+	//Methods
+	
+	// Este metodo se puede sobrescribir segun lo que necesite hacer cada juego para inicializarse
+	protected void inicializarValores() {}
 
-	//Definir los parametros iniciales para cada juego puntual
-	public abstract void inicializarValores();
-
-	//Metodo plantilla
-	public final void inicializar(Reglamento reglamento, Tablero tablero, UI ui){
-		this.reglamento = reglamento;
-		this.tablero = tablero;
-		this.ui = ui;
+	//Metodo Plantilla
+	public Juego(FactoryJuego factoryJuego) {
+		this.factoryJuego = factoryJuego;
+		this.reglamento = factoryJuego.getReglamento();
+		this.tablero = factoryJuego.getTablero();
+		this.ui = factoryJuego.getUI();
+		this.ui.setFactoryJugada(factoryJuego);
+		
 		ui.setJuego(this);
+		ui.setTablero(tablero);
+		
+		this.jugadores = new ArrayList<Jugador>();
 		
 		this.inicializarValores();
 	}
 	
-	//Jugar se comportaria como metodo plantilla. Las clases que extienden el metodo no lo redefinen.
-	//Solo se redefinen los metodos internos
-	public final void jugar(Jugada jugada){					
-										
-		//Validacion de juego. Reglamento => validar tablero
-		reglamento.validarJugada(jugada, this.tablero);
-		
-		//Ejecutar jugada
-		jugada.ejecutar(this.tablero);
-		
-		//Es fin de juego?
-		if(!reglamento.esFin(this.tablero)){
-			//Obtengo proximo jugador, lo envio a la interfaz
-			ui.proximoJugador(reglamento.proximoJugador(jugada.getJugador()));
-		}
-		else
-		{
-			ui.finDeJuego();
-		}
+	public void comenzar() {
+		this.jugadorActual = this.reglamento.obtenerJugadorInicial(this);
+		ui.proximoJugador(jugadorActual);
+		this.ui.interactuar();
 	}
 	
-	
+	public final void jugar(Jugada jugada) {					
+		reglamento.validarJugada(jugada, this.tablero);
+		
+		jugada.ejecutar(this.tablero);
+		
+		if(!reglamento.esFin(this)) {
+			this.jugadorActual = reglamento.proximoJugador(this);
+			ui.proximoJugador(jugadorActual);
+		}
+		else {
+			ui.finDeJuego(reglamento.obtenerResultado(this));
+		}
+	}
+
+	public Jugador getJugadorActual() {
+		return jugadorActual;
+	}
+
+	public List<Jugador> getJugadores() {
+		return this.jugadores;
+	}
+
+	public Tablero getTablero() {
+		return this.tablero;
+	}
 }
 

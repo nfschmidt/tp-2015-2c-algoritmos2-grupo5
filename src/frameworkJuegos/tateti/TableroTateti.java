@@ -5,38 +5,17 @@ import algoritmos2.grupo5.frameworkJuegos.Tablero;
 
 public class TableroTateti extends Tablero
 {
-	private int cantidaCasillas;
-	private int contadorCasillasOcupadas;
-	
-	
-	public TableroTateti()
-	{
-		super.setFilas(3);
-		super.setColumnas(3);
-		super.dimGrilla(3,3);
-	}
-	
-	@Override
-	public void inicializar()
-	{
-		for (int i = 0; i < this.getFilas(); i++){
-			for (int j = 0; j < this.getColumnas(); j++){
-				this.grilla[i][j] = "";
-			}
-		}		
+	public TableroTateti() {
+		super(3, 3);
 	}
 
-	
-	
-	
-	
-	//-----getters y setters----------------------------------------
-	public int getCantidaCasillas()
-	{
-		return cantidaCasillas;
+	@Override
+	public void inicializar() {
+		for (int fila = 0; fila < this.filas; fila ++) {
+			for (int columna = 0; columna < this.columnas; columna ++) {
+				this.grilla[fila][columna] = " ";
+			}
+		}
 	}
-	public int getContadorCasillasOcupadas()
-	{
-		return contadorCasillasOcupadas;
-	}	
+	
 }

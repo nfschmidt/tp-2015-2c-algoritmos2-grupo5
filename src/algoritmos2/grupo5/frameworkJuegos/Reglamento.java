@@ -2,20 +2,18 @@ package algoritmos2.grupo5.frameworkJuegos;
 
 public abstract class Reglamento
 {
-	public abstract boolean esValida(int unaPosicion);
-	public abstract boolean esFin(Tablero tablero);
-	public abstract boolean esGanador();
+	public abstract boolean esFin(Juego juego);
 	
 	public final void validarJugada(Jugada jugada, Tablero tablero){
-		if(!jugadaValida(jugada, tablero)){
+		if(! jugadaValida(jugada, tablero)) {
 			throw new JugadaInvalida();
 		}
 	}
 	
 	public abstract boolean jugadaValida(Jugada jugada, Tablero tablero);
-	public abstract boolean esFinDeTurno(Tablero tablero);
 	
-	public abstract Jugador obtenerJugadorInicial();
-	public abstract Jugador proximoJugador(Jugador jugadorAnterior);
+	public abstract Jugador obtenerJugadorInicial(Juego juego);
+	public abstract Jugador proximoJugador(Juego juego);
+	public abstract Resultado obtenerResultado(Juego juego);
 
 }

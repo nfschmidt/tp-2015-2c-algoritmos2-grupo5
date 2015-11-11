@@ -6,18 +6,14 @@ import java.util.Scanner;
 public abstract class UI
 {
 	public Jugador jugadorActual;
-	Scanner scanner;
+	Scanner scanner = new Scanner(System.in);
 	public boolean esFinDeJuego = false;
 	public Juego juego;
-	public FactoryJugada factoryJugada;
+	public FactoryJuego factoryJugada;
 	public Tablero tablero;
+	public Resultado resultado;
 	
-	//Abstract methods
-	public abstract void imprimirMenu(String[] unMenu);
-	public abstract void proximaJugada();
-	public abstract void finalizarJuego();
-	
-	public void setFactoryJugada(FactoryJugada factory){
+	public void setFactoryJugada(FactoryJuego factory){
 		this.factoryJugada = factory;
 	}
 	
@@ -38,6 +34,7 @@ public abstract class UI
 	{
 		scanner.close();
 	}
+	
 	public int scanearValor()
 	{
 		boolean error= false;
@@ -56,6 +53,7 @@ public abstract class UI
 		} while (error);
 		return 0;
 	}
+	
 	public String scanearCadena()
 	{
 		boolean error= false;
@@ -68,37 +66,38 @@ public abstract class UI
 			}
 			catch (Exception ex)
 			{
-				imprimir("Pasó algo acá!!!!");
+				imprimir("Pasï¿½ algo acï¿½!!!!");
 				scanner.next();
 				error=true;
 			}
 		} while (error);
 		return "";
 	}
+	
 	public void imprimir(String mensaje)
 	{
 		System.out.println(mensaje);
 	}
 
-
-	
-	public void finDeJuego(){
+	public void finDeJuego(Resultado resultado){
+		this.actualizarVista(tablero);
 		this.esFinDeJuego = true;		
+		this.resultado = resultado;
 		finalizarJuego();
 	}
-
 	
 	public void proximoJugador(Jugador jugador){
 		jugadorActual = jugador;			
 	}
 	
 	//Metodo que escuchara las jugadas de cada jugador
-	public void interactuar(){
-		
-		while(!esFinDeJuego){
-			tablero.print();
+	public void interactuar() {		
+		while(! esFinDeJuego) {
+			this.actualizarVista(this.tablero);
+			
 			String input = this.scanearCadena();
-			Jugada jugada = this.factoryJugada.getJugada(input);
+			
+			Jugada jugada = this.factoryJugada.getJugada(jugadorActual, input);
 			
 			try {
 				this.juego.jugar(jugada);
@@ -108,26 +107,8 @@ public abstract class UI
 		}
 	}
 	
-	public final void imprimir(Tablero tablero){
-		String grilla = "";
-		String separador = "";
-		for(int i = 0; i < tablero.getFilas() -1; i++){
-			for(int j = 0; j < tablero.getColumnas() -1; i++){
-				grilla = grilla + " " + tablero.grilla[i][j];
-				
-				if(j < tablero.getColumnas() - 1){
-					grilla = grilla + " |";
-				}
-				else{
-					grilla = grilla + " ";
-				}
-				separador += "----";
-			}
-			grilla = grilla + '\n';
-			if (i < tablero.getFilas() - 1 ){
-				grilla = grilla + separador + '\n';
-			}
-		}
-	}
+	public abstract void actualizarVista(Tablero tablero);
+
+	public abstract void finalizarJuego();
 	
 }

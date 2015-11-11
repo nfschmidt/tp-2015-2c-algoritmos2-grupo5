@@ -2,110 +2,88 @@ package frameworkJuegos.tateti;
 
 import java.util.List;
 
+import algoritmos2.grupo5.frameworkJuegos.Juego;
 import algoritmos2.grupo5.frameworkJuegos.Jugada;
 import algoritmos2.grupo5.frameworkJuegos.Jugador;
 import algoritmos2.grupo5.frameworkJuegos.Reglamento;
+import algoritmos2.grupo5.frameworkJuegos.Resultado;
 import algoritmos2.grupo5.frameworkJuegos.Tablero;
 
 public class ReglamentoTateti extends Reglamento
 {
-	private List<Jugador> jugadores;	
-	public List<Jugador> getJugadores(){
-		return this.jugadores;
+	@Override
+	public boolean jugadaValida(Jugada jugada, Tablero tablero) {
+		JugadaTateti jugadaTateti = (JugadaTateti) jugada;
+		return tablero.getCasilla(jugadaTateti.getFila(), jugadaTateti.getColumna()) == " ";
 	}
-	public void setJugadores(List<Jugador> jugadores){
-		this.jugadores = jugadores;
-	}
-	
-	public boolean esValida(int unaPosicion)
-	{
-		if (unaPosicion != -1)
-			return true;
-		else
-			return false;
-	}
-	
-	/*public boolean esFin(IJugada unaJugada)
-	{
-		JugadaTateti jugada=(JugadaTateti)unaJugada;
-		return (esGanador(jugada)|| hayEmpate(jugada));
-	}
-	public boolean esGanador(IJugada jugada)
-	{
-		return false;//agregar los casos en que alguien gana
-	}
-	public boolean hayEmpate(IJugada unaJugada)
-	{
-		JugadaTateti jugada=(JugadaTateti)unaJugada;
-		int cantidadCasillas = jugada.getTablero().getCantidaCasillas();
-		int contadorCasillas = jugada.getTablero().getContadorCasillasOcupadas();
-		return (cantidadCasillas == contadorCasillas);
-	}*/
 
 	@Override
-	public boolean esFin(Tablero tablero)
-	{
-		boolean esFin = false;
-		for (int i = 0; i < tablero.getFilas(); i++){
-			for (int j = 0; j < tablero.getColumnas(); j++){
-				if ( tablero.grilla[i][j] == "X" || tablero.grilla[i][j] == "O"){
-					esFin = true;
-				}
-				else{
-					return false;
-				}
-			}
+	public Jugador obtenerJugadorInicial(Juego juego) {
+		return juego.getJugadores().get(0);
+	}
+
+	@Override
+	public Jugador proximoJugador(Juego juego) {
+		List<Jugador> jugadores = juego.getJugadores();
+		if (juego.getJugadorActual() == jugadores.get(0)) {
+			return jugadores.get(1);
 		}
-		return esFin;
-	}
-
-	@Override
-	public boolean esGanador()
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean jugadaValida(Jugada jugada, Tablero tablero)
-	{
-		boolean esValida;
-		esValida = jugada.getPosicionX() <= tablero.getFilas() && jugada.getPosicionY() <= tablero.getColumnas();
-		esValida = esValida && tablero.grilla[jugada.getPosicionX()][jugada.getPosicionY()].length() == 0;
 		
-		return esValida;
+		return jugadores.get(0);
+	}
+	
+	@Override
+	public boolean esFin(Juego juego) {
+		TableroTateti tablero = (TableroTateti) juego.getTablero();
+		
+		return hayTatetiVertical(tablero) ||
+				hayTatetiHorizontal(tablero) ||
+				hayTatetiDiagonal(tablero);
 	}
 
-	@Override
-	public boolean esFinDeTurno(Tablero tablero)
-	{
-		// TODO Auto-generated method stub
+	
+	
+	private boolean hayTatetiDiagonal(TableroTateti tablero) {
+		if (tablero.getCasilla(0, 0) != " " &&
+				tablero.getCasilla(0, 0) == tablero.getCasilla(1, 1) &&
+				tablero.getCasilla(0, 0) == tablero.getCasilla(2, 2)) {
+			return true;
+		}
+		else if (tablero.getCasilla(0, 2) != " " &&
+				tablero.getCasilla(0, 2) == tablero.getCasilla(1, 1) &&
+				tablero.getCasilla(0, 2) == tablero.getCasilla(2, 0)) {
+		}
+		
+		return false;
+	}
+
+	private boolean hayTatetiHorizontal(TableroTateti tablero) {
+		for (int fila = 0; fila < tablero.getFilas(); fila ++) {
+			if (tablero.getCasilla(fila, 0) != " " &&
+					tablero.getCasilla(fila, 0) == tablero.getCasilla(fila, 1) &&
+					tablero.getCasilla(fila, 0) == tablero.getCasilla(fila, 2)) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	private boolean hayTatetiVertical(TableroTateti tablero) {
+		for (int columna = 0; columna < tablero.getFilas(); columna ++) {
+			if (tablero.getCasilla(0, columna) != " " &&
+					tablero.getCasilla(0, columna) == tablero.getCasilla(1, columna) &&
+					tablero.getCasilla(0, columna) == tablero.getCasilla(2, columna)) {
+				return true;
+			}
+		}
+		
 		return false;
 	}
 
 	@Override
-	public Jugador obtenerJugadorInicial()
-	{
-		for ( Jugador jugador : this.getJugadores() ) {
-            if (jugador.getFicha() == "X")
-            	return jugador;
-		}
-		return null;
+	public Resultado obtenerResultado(Juego juego) {
+		return new Resultado();
 	}
-
-	@Override
-	public Jugador proximoJugador(Jugador jugadorAnterior)
-	{
-		int indiceJugador = this.getJugadores().indexOf(jugadorAnterior);
-		if (indiceJugador > 0){
-			if (indiceJugador == this.getJugadores().size() - 1){
-				return this.getJugadores().get(0);
-			}
-			else
-				return this.getJugadores().get(indiceJugador + 1);
-		}
-		return null;
-	}
-
 
 }
