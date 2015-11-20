@@ -32,5 +32,15 @@ public abstract class Tablero
 	}
 	
 	public abstract void inicializar();
+	
+	public boolean estaCompleto(){		
+		for (int i = 0; i < this.getFilas(); i++){
+			for(int j = 0; j < this.getColumnas(); j ++){
+				if(this.getCasilla(i, j) == " ")
+					return false;
+			}
+		}
+		return true;
+	}
 
 }

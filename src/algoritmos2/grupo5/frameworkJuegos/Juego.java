@@ -67,5 +67,13 @@ public abstract class Juego {
 	public Tablero getTablero() {
 		return this.tablero;
 	}
+	
+	public Jugador obtenerJugador(String ficha){
+		for (Jugador jugador: this.jugadores){
+			if (jugador.getFicha() == ficha)
+				return jugador;
+		}
+		return null;
+	}
 }
 

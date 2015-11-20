@@ -34,56 +34,92 @@ public class ReglamentoTateti extends Reglamento
 	
 	@Override
 	public boolean esFin(Juego juego) {
-		TableroTateti tablero = (TableroTateti) juego.getTablero();
+		JuegoTateti juegoTateti = (JuegoTateti)juego;
 		
-		return hayTatetiVertical(tablero) ||
-				hayTatetiHorizontal(tablero) ||
-				hayTatetiDiagonal(tablero);
+		return hayTatetiVertical(juegoTateti) ||
+				hayTatetiHorizontal(juegoTateti) ||
+				hayTatetiDiagonal(juegoTateti) || juego.getTablero().estaCompleto();
 	}
 
 	
 	
-	private boolean hayTatetiDiagonal(TableroTateti tablero) {
-		if (tablero.getCasilla(0, 0) != " " &&
-				tablero.getCasilla(0, 0) == tablero.getCasilla(1, 1) &&
-				tablero.getCasilla(0, 0) == tablero.getCasilla(2, 2)) {
-			return true;
-		}
-		else if (tablero.getCasilla(0, 2) != " " &&
-				tablero.getCasilla(0, 2) == tablero.getCasilla(1, 1) &&
-				tablero.getCasilla(0, 2) == tablero.getCasilla(2, 0)) {
-		}
-		
-		return false;
+	private boolean hayTatetiDiagonal(JuegoTateti juego) {
+		return obtenerGanadorDiagonal(juego) != null;
 	}
 
-	private boolean hayTatetiHorizontal(TableroTateti tablero) {
-		for (int fila = 0; fila < tablero.getFilas(); fila ++) {
-			if (tablero.getCasilla(fila, 0) != " " &&
-					tablero.getCasilla(fila, 0) == tablero.getCasilla(fila, 1) &&
-					tablero.getCasilla(fila, 0) == tablero.getCasilla(fila, 2)) {
-				return true;
-			}
-		}
-		
-		return false;
+	private boolean hayTatetiHorizontal(JuegoTateti juego) {
+		return obtenerGanadorHorizontal(juego) != null;
 	}
 	
-	private boolean hayTatetiVertical(TableroTateti tablero) {
+	private boolean hayTatetiVertical(JuegoTateti juego) {
+		return obtenerGanadorVertical(juego) != null;
+	}
+
+	@Override
+	public Resultado obtenerResultado(Juego juego) {		
+		JuegoTateti juegoTateti = (JuegoTateti)juego;
+		if(this.hayTatetiVertical(juegoTateti)){
+			return new Resultado(this.obtenerGanadorVertical(juegoTateti));
+		}
+		
+		if(this.hayTatetiHorizontal(juegoTateti)){
+			return new Resultado(this.obtenerGanadorHorizontal(juegoTateti));
+		}
+		
+		if(this.hayTatetiDiagonal(juegoTateti)){
+			return new Resultado(this.obtenerGanadorDiagonal(juegoTateti));
+		}
+		
+		return new Resultado();
+	}
+	
+	
+	public Jugador obtenerGanadorVertical(JuegoTateti juego){
+		
+		TableroTateti tablero = (TableroTateti)juego.getTablero();		
+		
 		for (int columna = 0; columna < tablero.getFilas(); columna ++) {
 			if (tablero.getCasilla(0, columna) != " " &&
 					tablero.getCasilla(0, columna) == tablero.getCasilla(1, columna) &&
 					tablero.getCasilla(0, columna) == tablero.getCasilla(2, columna)) {
-				return true;
-			}
+				return juego.obtenerJugador(tablero.getCasilla(0, columna));
+			}				
 		}
+		return null;
+	}
+	
+	
+public Jugador obtenerGanadorHorizontal(JuegoTateti juego){
 		
-		return false;
+		TableroTateti tablero = (TableroTateti)juego.getTablero();		
+		
+		for (int fila = 0; fila < tablero.getFilas(); fila ++) {
+			if (tablero.getCasilla(fila, 0) != " " &&
+					tablero.getCasilla(fila, 0) == tablero.getCasilla(fila, 1) &&
+					tablero.getCasilla(fila, 0) == tablero.getCasilla(fila, 2)) {
+				return juego.obtenerJugador(tablero.getCasilla(fila, 0));
+			}
+		}		
+		return null;
 	}
 
-	@Override
-	public Resultado obtenerResultado(Juego juego) {
-		return new Resultado();
+
+public Jugador obtenerGanadorDiagonal(JuegoTateti juego){
+	
+	TableroTateti tablero = (TableroTateti)juego.getTablero();		
+	
+	if (tablero.getCasilla(0, 0) != " " &&
+			tablero.getCasilla(0, 0) == tablero.getCasilla(1, 1) &&
+			tablero.getCasilla(0, 0) == tablero.getCasilla(2, 2)) {
+		return juego.obtenerJugador(tablero.getCasilla(0, 0));
 	}
+	else if (tablero.getCasilla(0, 2) != " " &&
+			tablero.getCasilla(0, 2) == tablero.getCasilla(1, 1) &&
+			tablero.getCasilla(0, 2) == tablero.getCasilla(2, 0)) {
+		return juego.obtenerJugador(tablero.getCasilla(0, 2));
+	}
+	
+	return null;
+}
 
 }
